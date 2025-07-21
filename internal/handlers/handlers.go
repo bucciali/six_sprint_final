@@ -12,7 +12,7 @@ import (
 
 func HandlerIndex(w http.ResponseWriter, r *http.Request) {
 	cwd, _ := os.Getwd()
-	path := filepath.Join(cwd, "..", "index.html")
+	path := filepath.Join(cwd, "./", "index.html")
 	http.ServeFile(w, r, path)
 
 }
