@@ -22,7 +22,7 @@ func HandlerUpload(w http.ResponseWriter, r *http.Request) {
 
 	file, header, err := r.FormFile("myFile")
 	if err != nil {
-		http.Error(w, "mistake with getting file", http.StatusInternalServerError)
+		http.Error(w, "mistake with getting file"+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -30,7 +30,7 @@ func HandlerUpload(w http.ResponseWriter, r *http.Request) {
 
 	data, err := io.ReadAll(file)
 	if err != nil {
-		http.Error(w, "mistake with reading file", http.StatusInternalServerError)
+		http.Error(w, "mistake with reading file"+err.Error(), http.StatusInternalServerError)
 	}
 
 	datastr := service.Morze(string(data))
@@ -40,7 +40,7 @@ func HandlerUpload(w http.ResponseWriter, r *http.Request) {
 
 	err = os.WriteFile(filename, []byte(datastr), 0755)
 	if err != nil {
-		http.Error(w, "Mistake with writing file", http.StatusInternalServerError)
+		http.Error(w, "Mistake with writing file"+err.Error(), http.StatusInternalServerError)
 
 		return
 	}
